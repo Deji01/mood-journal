@@ -34,3 +34,60 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+### PlanetScale
+Delete all mysql-* packages
+```bash
+sudo apt-get remove mysql*
+```
+Download & Install mysql-client 
+```bash
+sudo env DEBIAN_FRONTEND=noninteractive apt-get install -qq mysql-client default-libmysqlclient-dev
+```
+Download Planetscale CLI
+```bash
+wget https://github.com/planetscale/cli/releases/download/v0.175.0/pscale_0.175.0_linux_amd64.deb
+```
+Install Planetscale CLI
+```bash
+sudo dpkg -i pscale_0.175.0_linux_amd64.deb 
+```
+Login into your account
+```bash
+pscale auth login
+```
+Create new branch if it does not exist
+```bash
+pscale branch create <database name> <branch name>
+```
+connect to database
+```bash
+pscale connect <database name> <branch name> --port 3309
+```
+### Prisma 
+- Open new terminal
+
+Install Prisma client 
+```bash
+npm install @prisma/client
+```
+Install Prisma SDK as a dev dependency
+```bash
+npm install prisma --save-dev
+```
+Initialize Prisma
+```bash
+npx prisma init
+```
+Format Prisma Schema
+```bash
+npx prisma format
+```
+Push Changes
+```bash
+npx prisma db push
+```
+View database on Prisma studio GUI
+```bash
+npx prisma studio
+```
