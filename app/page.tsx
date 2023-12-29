@@ -1,8 +1,12 @@
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, auth } from "@clerk/nextjs";
 import Link from "next/link";
 import React from "react";
 
-export default function Home() {
+export default async function Home() {
+  const {userId} = await auth()
+
+  let href = userId ? "/journal" : "/new-user"
+
   return (
     <div className="w-screen h-screen">
       <header className="flex w-full shrink-0 items-center justify-between p-4 md:p-6 mb-16">
@@ -40,8 +44,8 @@ export default function Home() {
               </li>
             </ul>
             <div>
-              <Link href="/journal">
-                <button className="bg-black text-white px-4 py-2 rounded transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:border-blue-300 active:bg-gray-800">
+              <Link href={href}>
+                <button className="outline-none bg-black text-white px-4 py-2 rounded transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring focus:border-blue-300 active:bg-gray-800">
                   Start Journaling
                 </button>
               </Link>

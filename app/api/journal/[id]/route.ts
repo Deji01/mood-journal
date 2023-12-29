@@ -1,0 +1,25 @@
+import { getUserByClerkID } from "@/utils/auth";
+import { prisma } from "@/utils/db";
+import { NextResponse } from "next/server";
+
+interface JournalParams {
+  id: string;
+}
+
+export const PATCH = async (request: Request, { params }: {params: JournalParams}) => {
+  const { content } = await request.json();
+
+  const user = await getUserByClerkID();
+  const updateEntry = await prisma.journalEntry.update({
+    where: {
+      JournalEntryId: {
+        userId: user.id,
+        id: params.id,
+      },
+    },
+    data: {
+      content,
+    },
+  });
+  return NextResponse.json({ data: updateEntry });
+};
