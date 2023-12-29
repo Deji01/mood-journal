@@ -21,6 +21,12 @@ model User {
   entries JournalEntry[]
 }
 
+enum JOURNAL_ENTRY_STATUS {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
 model JournalEntry {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
@@ -29,11 +35,11 @@ model JournalEntry {
   userId String
   user   User   @relation(fields: [userId], references: [id])
 
-  content String @db.Text
-
+  content  String               @db.Text
+  status   JOURNAL_ENTRY_STATUS @default(DRAFT)
   analysis Analysis?
 
-  @@unique(name: "JournalEntryId", [userId, id])
+  @@unique([userId, id])
 }
 
 model Analysis {

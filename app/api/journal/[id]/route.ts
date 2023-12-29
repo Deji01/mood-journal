@@ -12,7 +12,7 @@ export const PATCH = async (request: Request, { params }: {params: JournalParams
   const user = await getUserByClerkID();
   const updateEntry = await prisma.journalEntry.update({
     where: {
-      JournalEntryId: {
+      userId_id: {
         userId: user.id,
         id: params.id,
       },
